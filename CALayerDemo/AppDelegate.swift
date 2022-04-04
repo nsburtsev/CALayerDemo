@@ -3,7 +3,7 @@
 //  CALayerDemo
 //
 //  Created by Нюргун on 04.03.2022.
-//  Copyright © 2022 Ivan Akulov. All rights reserved.
+//  Copyright © 2022 Нюргун. All rights reserved.
 //
 
 import UIKit
