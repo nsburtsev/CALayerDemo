@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CAAnimationDelegate {
     
     var shapeLayer: CAShapeLayer! {
         didSet {
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
             let startColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1).cgColor
             let endColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1).cgColor
             gradientLayer.colors = [startColor, endColor]
-//            gradientLayer.locations = [0, 0.2, 1]
+            //            gradientLayer.locations = [0, 0.2, 1]
         }
     }
     
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
     //метод, который пересчитывает frame (указываем в каких пределах отрисовывается слой при повороте экрана)
     override func viewDidLayoutSubviews() {
         gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-
+        
         configShapeLayer(shapeLayer)
         configShapeLayer(overShapeLayer)
     }
@@ -88,11 +88,20 @@ class ViewController: UIViewController {
         overShapeLayer = CAShapeLayer()
         view.layer.addSublayer(overShapeLayer)
     }
+    
     @IBAction func tapped(_ sender: UIButton) {
-        overShapeLayer.strokeEnd += 0.5
-        if overShapeLayer.strokeEnd == 1 {
-            performSegue(withIdentifier: "showSecondScreen", sender: self)
-        }
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.toValue = 1
+        animation.duration = 2
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        animation.fillMode = CAMediaTimingFillMode.both
+        animation.isRemovedOnCompletion = false
+        
+        animation.delegate = self
+        
+        overShapeLayer.add(animation, forKey: nil)
+    }
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        performSegue(withIdentifier: "showSecondScreen", sender: self)
     }
 }
-

@@ -90,6 +90,9 @@
                                 <state key="normal" title="Take the cup">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="tappedCup:" destination="QOs-tZ-jqO" eventType="touchUpInside" id="c5Y-P0-BNG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.76024037599563599" green="0.89662289619445801" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
